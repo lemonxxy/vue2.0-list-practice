@@ -15,6 +15,8 @@
             编号：<input type="text" v-model='id'> 
             品牌名称：<input type="text" v-model='name'>
             <button @click='addData'>添加数据</button>
+            <br>
+            筛选数据：<input type="text">
         </div>
         <table id='tb'>
             <tr>
@@ -32,7 +34,9 @@
             <tr v-for='item in list'>
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.ctime}}</td>
+                <!-- <td>{{item.ctime | datefmt('yyyy-mm-dd')}}</td> -->
+                <td>{{item.ctime | datefmt}}</td>
+                
                 <td>
                     <a href="javascript:;" @click='delData(item.id)'> 删除 </a>
                 </td>
@@ -41,6 +45,22 @@
     </div>
     <script src="js/vue221.js"></script>
     <script type="text/javascript">
+        //定义全局过滤器 格式化时间
+        Vue.filter('datefmt',function(input,formatstring){
+            var res = '';
+            var year = input.getFullYear();
+            var month = input.getMonth() +1;
+            var day = input.getDate();
+            var hour = input.getHours();
+            var minute = input.getMinutes();
+            var second = input.getSeconds();
+            if(formatstring == 'yyyy-mm-dd'){
+                res = year + '-' + month + '-' + day;
+            }else{
+                res = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second ;
+            }
+            return res;
+        });
         new Vue({
             el: '#app',
             data: {
@@ -48,7 +68,8 @@
                     { id: 1, name: '本性', ctime: new Date }
                 ],
                 id: 0,
-                name:''
+                name:'',
+                ctime: new Date()
             },
             methods: {
                 addData: //添加数据
