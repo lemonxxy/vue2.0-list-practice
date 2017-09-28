@@ -1,0 +1,23 @@
+a{
+    text-decoration: none;
+    color: yellowgreen;
+}
+
+#tb {
+    width:800px;
+    border-collapse:collapse;
+    margin:20px auto;
+}
+#tb th{
+    background-color: #E1FF00;
+    color:#fff;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #000 ;
+    padding: 5px;
+}
+#tb td{
+    text-align: center;
+    border: 1px solid #000 ;
+    padding: 5px;
+}
