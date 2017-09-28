@@ -12,8 +12,8 @@
 <body>
     <div id="app">
         <div class="text">
-            编号：<input type="text" v-model='id'> 品牌名称：
-            <input type="text" v-model='name'>
+            编号：<input type="text" v-model='id'> 
+            品牌名称：<input type="text" v-model='name'>
             <button @click='addData'>添加数据</button>
         </div>
         <table id='tb'>
@@ -34,7 +34,7 @@
                 <td>{{item.name}}</td>
                 <td>{{item.ctime}}</td>
                 <td>
-                    <a href="javascript:;"> 删除 </a>
+                    <a href="javascript:;" @click='delData(item.id)'> 删除 </a>
                 </td>
             </tr>
         </table>
@@ -46,18 +46,34 @@
             data: {
                 list: [
                     { id: 1, name: '本性', ctime: new Date }
-                ]
+                ],
+                id: 0,
+                name:''
             },
             methods: {
-                addData: 
+                addData: //添加数据
                     function() {
-                        //添加数据
+                        if(this.id <= 0 || this.name == ''){
+                            alert('请填写完整信息');
+                            return;
+                        }
                         this.list.push({ id: this.id, name: this.name, ctime: new Date() });
                         //清空页面中文本框中的内容
                         this.id = 0;
                         this.name = '';
+                    },
+                delData: //删除数据
+                    function(id){
+                        //判断是否删除数据
+                        if(!confirm('是否真的删除数据？')){
+                            return;
+                        }
+                       var index = this.list.findIndex(function(item){
+                           return item.id == id;
+                       });
+                       this.list.splice(index,1);
                     }
-                
+
             }
         })
     </script>
