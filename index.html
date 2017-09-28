@@ -16,10 +16,15 @@
                 <th>创建时间</th>
                 <th>操作</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>奔驰</td>
-                <td>2017-1-1</td>
+            <tr v-if='list.length == 0'>
+                <td colspan="4">
+                    当前列表无数据
+                </td>
+            </tr>
+            <tr v-for='item in list'>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.ctime}}</td>
                 <td>
                     <a href="javascript:;"> 删除 </a>
                 </td>
@@ -29,7 +34,12 @@
     <script src="js/vue221.js"></script>
     <script type="text/javascript">
         new Vue({
-
+            el:'#app',
+            data:{
+                list:[
+                    // {id:1,name:'本性',ctime:new Date}
+                ]
+            }
         })
     </script>
 </body>
