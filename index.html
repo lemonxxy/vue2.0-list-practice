@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/base.css">
 </head>
+
 <body>
     <div id="app">
+        <div class="text">
+            编号：<input type="text" v-model='id'> 品牌名称：
+            <input type="text" v-model='name'>
+            <button @click='addData'>添加数据</button>
+        </div>
         <table id='tb'>
             <tr>
                 <th>编号</th>
@@ -16,6 +23,7 @@
                 <th>创建时间</th>
                 <th>操作</th>
             </tr>
+            <!-- 没有数据时显示这个列表 -->
             <tr v-if='list.length == 0'>
                 <td colspan="4">
                     当前列表无数据
@@ -34,13 +42,25 @@
     <script src="js/vue221.js"></script>
     <script type="text/javascript">
         new Vue({
-            el:'#app',
-            data:{
-                list:[
-                    // {id:1,name:'本性',ctime:new Date}
+            el: '#app',
+            data: {
+                list: [
+                    { id: 1, name: '本性', ctime: new Date }
                 ]
+            },
+            methods: {
+                addData: 
+                    function() {
+                        //添加数据
+                        this.list.push({ id: this.id, name: this.name, ctime: new Date() });
+                        //清空页面中文本框中的内容
+                        this.id = 0;
+                        this.name = '';
+                    }
+                
             }
         })
     </script>
 </body>
+
 </html>
