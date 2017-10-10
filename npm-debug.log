@@ -1,4 +1,4 @@
-0 info it worked if it ends with ok
+﻿0 info it worked if it ends with ok
 1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
 1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
 1 verbose cli   'run',
@@ -21,3 +21,6 @@
 15 error enoent This is most likely not a problem with npm itself
 15 error enoent and is related to npm not being able to find a file.
 16 verbose exit [ -4058, true ]
+
+
+11111
