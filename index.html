@@ -13,10 +13,10 @@
     <div id="app">
         <div class="text">
             编号：<input type="text" v-model='id'> 
-            品牌名称：<input type="text" v-model='name'>
+            电影名称：<input type="text" v-model='name' @keydown.enter='addData()'>
             <button @click='addData'>添加数据</button>
             <br>
-            筛选数据：<input type="text">
+            筛选数据：<input type="text" v-focus>
         </div>
         <table id='tb'>
             <tr>
@@ -33,9 +33,9 @@
             </tr>
             <tr v-for='item in list'>
                 <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
+                <td>{{item.title}}</td>
                 <!-- <td>{{item.ctime | datefmt('yyyy-mm-dd')}}</td> -->
-                <td>{{item.ctime | datefmt}}</td>
+                <td>{{item.year}}</td>
                 
                 <td>
                     <a href="javascript:;" @click='delData(item.id)'> 删除 </a>
@@ -44,6 +44,7 @@
         </table>
     </div>
     <script src="js/vue221.js"></script>
+    <script src="js/vue-resource.js"></script>
     <script type="text/javascript">
         //定义全局过滤器 格式化时间
         Vue.filter('datefmt',function(input,formatstring){
@@ -65,11 +66,14 @@
             el: '#app',
             data: {
                 list: [
-                    { id: 1, name: '本性', ctime: new Date }
+                    // { id: 1, name: '本性', ctime: new Date }
                 ],
                 id: 0,
                 name:'',
                 ctime: new Date()
+            },
+            created:function(){
+                this.getlist();
             },
             methods: {
                 addData: //添加数据
@@ -78,7 +82,8 @@
                             alert('请填写完整信息');
                             return;
                         }
-                        this.list.push({ id: this.id, name: this.name, ctime: new Date() });
+                       
+                        // this.list.push({ id: this.id, name: this.name, ctime: new Date() });
                         //清空页面中文本框中的内容
                         this.id = 0;
                         this.name = '';
@@ -93,9 +98,26 @@
                            return item.id == id;
                        });
                        this.list.splice(index,1);
-                    }
+                    },
+                getlist:
+                    function(){
+                        this.$http.jsonp('http://api.douban.com/v2/movie/top250').then( function(response){
+                            this.list = response.body.subjects;
+                            console.log(response.body.subjects);
+                        })
+                }
 
+            },
+            directives:{
+                focus:{
+                    bind:function(el,binding){
+                        console.log(el);
+                        console.log(binding);
+                        el.focus();//自动获取焦点
+                    }
+                }
             }
+
         })
     </script>
 </body>
