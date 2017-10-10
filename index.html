@@ -16,7 +16,7 @@
             电影名称：<input type="text" v-model='name' @keydown.enter='addData()'>
             <button @click='addData'>添加数据</button>
             <br>
-            筛选数据：<input type="text" v-focus>
+            筛选数据：<input type="text" v-focus v-model="sname">
         </div>
         <table id='tb'>
             <tr>
@@ -31,7 +31,7 @@
                     当前列表无数据
                 </td>
             </tr>
-            <tr v-for='item in list'>
+            <tr v-for='item in filterList'>
                 <td>{{item.id}}</td>
                 <td>{{item.title}}</td>
                 <!-- <td>{{item.ctime | datefmt('yyyy-mm-dd')}}</td> -->
@@ -70,10 +70,21 @@
                 ],
                 id: 0,
                 name:'',
-                ctime: new Date()
+                ctime: new Date(),
+                sname:''
             },
             created:function(){
                 this.getlist();
+            },
+            computed:{
+                filterList:function(){
+                    var list = this.list;
+                    var sname = this.sname;
+                    return list.filter(function(item){
+                        return item.title.toLowerCase().indexOf(sname.toLowerCase()) != -1;
+                       return true;
+                    })
+                }
             },
             methods: {
                 addData: //添加数据
@@ -83,7 +94,7 @@
                             return;
                         }
                        
-                        // this.list.push({ id: this.id, name: this.name, ctime: new Date() });
+                        this.list.push({ id: this.id, title: this.name, year: new Date() });
                         //清空页面中文本框中的内容
                         this.id = 0;
                         this.name = '';
