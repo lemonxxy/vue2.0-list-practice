@@ -1,6 +1,6 @@
 a{
     text-decoration: none;
-    color: yellowgreen;
+    color: rgb(95, 119, 43);
 }
 
 #tb {
@@ -9,7 +9,7 @@ a{
     margin:20px auto;
 }
 #tb th{
-    background-color: #FF00C1;
+    background-color: rgb(179, 83, 156);
     color:#fff;
     font-size: 16px;
     text-align: center;
